@@ -3,8 +3,6 @@ import { test } from '@playwright/test';
 import { generateNewArticleData } from '../../../src/common/testData/generateNewArticleData';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
-import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
-import { EditArticlePage } from '../../../src/ui/pages/article/EditArticlePage';
 
 
 const testParameters = [
