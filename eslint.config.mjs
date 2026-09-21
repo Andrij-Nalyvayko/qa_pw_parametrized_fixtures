@@ -23,8 +23,8 @@ export default [
       'max-len': [
         'error',
         {
-          code: 80,
-          comments: 80,
+          code: 130,
+          comments: 130,
           ignorePattern: 'import *',
         },
       ],

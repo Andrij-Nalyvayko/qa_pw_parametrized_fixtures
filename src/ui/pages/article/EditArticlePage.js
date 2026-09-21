@@ -5,10 +5,57 @@ export class EditArticlePage {
     this.page = page;
     this.userId = userId;
     this.articleTitleHeader = page.getByRole('heading');
+    this.tagField = page.getByPlaceholder('Enter tags');
+    this.updateArticleButton = page.getByRole('button', {
+      name: 'Update Article',
+    });
+  }
+
+  tagPill(tagName) {
+    return this.page.locator('.tag-pill').filter({ hasText: tagName });
+  }
+
+  removeTagIcon(tagName) {
+    return this.tagPill(tagName).locator('.ion-close-round');
   }
 
   async step(title, stepToRun) {
     return await testStep(title, stepToRun, this.userId);
+  }
+
+  async open(slug) {
+    await this.step(`Open 'Edit article' page`, async () => {
+      await this.page.goto(`/editor/${slug}`);
+    });
+  }
+
+  async fillTagsField(tags) {
+    await this.step(`Fill the 'Tags' field`, async () => {
+      for (let i = 0; i < tags.length; i++) {
+        await this.tagField.fill(tags[i]);
+        await this.page.keyboard.press('Enter');
+      }
+    });
+  }
+
+  async removeTag(tagName) {
+    await this.step(`Remove the '${tagName}' tag`, async () => {
+      await this.removeTagIcon(tagName).click();
+    });
+  }
+
+  async removeAllTags(tags) {
+    await this.step(`Remove all tags`, async () => {
+      for (let i = 0; i < tags.length; i++) {
+        await this.removeTag(tags[i]);
+      }
+    });
+  }
+
+  async clickUpdateArticleButton() {
+    await this.step(`Click the 'Update Article' button`, async () => {
+      await this.updateArticleButton.click();
+    });
   }
 
   async assertArticleTitle(title) {
