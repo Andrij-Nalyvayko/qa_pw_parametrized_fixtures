@@ -36,6 +36,7 @@ test.describe('Sign up negative tests', () => {
 testParameters.forEach(({email, password, message, title, username}) => {
   test(`Sign up with ${title}`, async ({ signUpPage }) => {
     await signUpPage.open();
+    await signUpPage.fillUsernameField(username);
     await signUpPage.fillEmailField(email);
     await signUpPage.fillPasswordField(password);
     await signUpPage.clickSignUpButton();
